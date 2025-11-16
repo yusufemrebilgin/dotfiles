@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-readonly DEVENV_SCRIPT_PATH=$(dirname "${BASH_SOURCE[0]}")
+readonly DEVENV_SCRIPT_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 readonly DEVENV_SCRIPT_MODULES_DIR="${DEVENV_SCRIPT_PATH}/modules"
 readonly DEVENV_SCRIPT_MODULE_FUNC_NAME="run_module_installation"
 
@@ -38,7 +38,7 @@ install_module() {
 }
 
 install_all_modules() {
-  for module in "${DEVENV_SCRIPT_MODULES_DIR}"/*.sh; do
+  for module in "${DEVENV_SCRIPT_MODULES_DIR}"/*; do
     install_module "${module}"
   done
 }
