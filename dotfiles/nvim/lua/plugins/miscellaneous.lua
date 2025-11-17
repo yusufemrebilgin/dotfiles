@@ -9,5 +9,11 @@ return {
     -- sleuth.vim (https://github.com/tpope/vim-sleuth)
     -- Automatically adjust 'shiftwidth' and 'expandtab' heuristically based on the current file
     'tpope/vim-sleuth'
+  },
+  {
+    -- nvim-autopairs (https://github.com/windwp/nvim-autopairs)
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true
   }
 }
