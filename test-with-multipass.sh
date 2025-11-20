@@ -33,9 +33,9 @@ multipass launch "${UBUNTU_IMAGE_VERSION}" \
 echo "Mounting '${MOUNT_SOURCE_PATH}' to '${MOUNT_TARGET_PATH}'"
 multipass mount "${MOUNT_SOURCE_PATH}" "${UBUNTU_INSTANCE_NAME}:${MOUNT_TARGET_PATH}"
 
-# All script output is saved to /tmp/dev-install.log and can be inpected with 'less'
+# All script output is saved to /tmp/install.log and can be inpected with 'less'
 # or follow in real-time using 'tail -f'.
-multipass exec "${UBUNTU_INSTANCE_NAME}" -- bash -c "cd ${MOUNT_TARGET_PATH} && stdbuf -oL -eL ./dev-install.sh | tee /tmp/dev-install.log" &>/dev/null &
+multipass exec "${UBUNTU_INSTANCE_NAME}" -- bash -c "cd ${MOUNT_TARGET_PATH} && stdbuf -oL -eL ./install.sh | tee /tmp/install.log" &>/dev/null &
 
 # If we are already inside tmux, it will open the VM shell in a new split so we don't lose
 # our current pane. Otherwise, it will just open the multipass shell normally.
