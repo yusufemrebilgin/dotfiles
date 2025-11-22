@@ -4,7 +4,7 @@ readonly DEVENV_TMUX_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/tmux"
 readonly DEVENV_TMUX_DOTFILES_DIR="${DEVENV_DOTFILES_DIR}/tmux"
 
 install() {
-  run_cmd sudo apt install tmux
+  run_cmd sudo apt-get install -y tmux
   run_cmd mkdir -pv "${DEVENV_TMUX_CONFIG_DIR}"
   run_cmd cp -v "${DEVENV_TMUX_DOTFILES_DIR}/tmux.conf" "${DEVENV_TMUX_CONFIG_DIR}"
   # Clone tpm (tmux plugin manager) and install plugins
