@@ -6,8 +6,8 @@ readonly DEVENV_SDKMAN_INIT_SCRIPT="${DEVENV_SDKMAN_CONFIG_DIR}/bin/sdkman-init.
 install() {
   set +u
   log "Installing SDKMAN!..."
-  run_cmd rm -rfv "${DEVENV_SDKMAN_CONFIG_DIR}"
-  run_cmd curl -s "https://get.sdkman.io" | bash &>/dev/null
+  run_cmd rm -rfv "${DEVENV_SDKMAN_CONFIG_DIR}" || true
+  run_cmd bash -c 'curl -s "https://get.sdkman.io" | bash' &>/dev/null
   run_cmd source "${DEVENV_SDKMAN_INIT_SCRIPT}"
   log "Installation completed successfully for SDKMAN!"
   set -u
