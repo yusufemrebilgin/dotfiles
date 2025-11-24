@@ -60,8 +60,57 @@ install_all_modules() {
   done
 }
 
+is_package_installed() {
+  dpkg -l "$1" 2>/dev/null | grep -q "^ii"
+}
+
+install_apt_packages() {
+  local packages=(
+    git
+    curl
+    wget
+    zip
+    unzip
+    xclip
+    build-essential
+    cmake
+    gcc
+    g++
+    make
+    openssl
+    pkg-config
+    ca-certificates
+    fzf
+    jq
+    tree
+    fd-find
+    ripgrep
+  )
+
+  local to_install=()
+  for package in "${packages[@]}"; do
+    if is_package_installed "${package}"; then
+      log "Package '${package}' is already installed, skipping it.."
+    else
+      to_install+=("${package}")
+    fi
+  done
+
+  if [[ "${#to_install[@]}" -gt 0 ]]; then
+    log "Installing ${#to_install[@]} packages: ${to_install[*]}"
+    run_cmd sudo apt-get install -y "${to_install[@]}"
+  else
+    log "All packages are already installed"
+  fi
+}
+
 if [[ "${1:-}" == "--dry-run" ]]; then
   DRY_RUN=true
 fi
+
+run_cmd sudo apt-get update
+run_cmd sudo apt-get upgrade -y
+
+install_apt_packages
 
 cd "${DEVENV_SCRIPT_PATH}" && install_all_modules
