@@ -1,0 +1,101 @@
+let mapleader = " "
+
+" Plugins -----------------------------------
+set commentary
+set NERDTree
+set highlightedyank
+
+" Settings ----------------------------------
+set scrolloff=5
+set relativenumber
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+set clipboard=unnamedplus
+
+" Idea specific settings --------------------
+set ideajoin
+set ideastatusicon=gray
+
+" Bindings ----------------------------------
+map <C-h> <C-w>h
+map <C-l> <C-w>l
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+
+map <C-S-j> <Action>(MoveLineDown)
+map <C-S-k> <Action>(MoveLineUp)
+
+nnoremap <C-m> :action MethodDown<CR>
+nnoremap <C-S-m> :action MethodUp<CR>
+
+map <Leader>ca <Action>(CopyAbsolutePath)
+map <Leader>cf <Action>(CopyFileName)
+map <Leader>cr <Action>(CopyContentRootPath)
+
+map <Leader>s <Action>(Stop)
+map <Leader>c  <Action>(CommentByLineComment)
+map <Leader>cc <Action>(CommentByLineComment)
+map <Leader>t  <Action>(ActivateTerminalToolWindow)
+map <Leader>tt <Action>(ActivateTerminalToolWindow)
+
+map <Leader>jd <Action>(QuickJavaDoc)
+map <Leader><Space> <Action>(RecentFiles)
+
+map <Leader>gn <Action>(Generate)
+map <Leader>gi <Action>(GotoImplementation)
+map <Leader>gd <Action>(GotoDeclaration)
+map <Leader>gD <Action>(GotoTypeDeclaration)
+map <Leader>gm <Action>(GotoSuperMethod)
+map <Leader>gc <Action>(GotoClass)
+map <Leader>gt <Action>(GotoTest)
+map <Leader>gf <Action>(GotoFile)
+map <Leader>gs <Action>(GotoSymbol)
+map <Leader>ge <Action>(GotoNextError)
+map <Leader>gE <Action>(GotoPreviousError)
+
+map <Leader>fu <Action>(FindUsages)
+map <Leader>su <Action>(ShowUsages)
+map <Leader>qi <Action>(QuickImplementations)
+map <Leader>qt <Action>(QuickTypeDefinition)
+map <Leader>qe <Action>(ExpressionTypeInfo)
+map <Leader>oo <Action>(FileStructurePopup)
+map <Leader>h  <Action>(Back)
+map <Leader>l  <Action>(Forward)
+
+map <Leader>nc <Action>(NewClass)
+map <Leader>nf <Action>(NewFile)
+map <Leader>nd <Action>(NewDir)
+map <Leader>ns <Action>(NewScratchFile)
+
+map <Leader>rn <Action>(RenameElement)
+map <Leader>ri <Action>(IntroduceVariable)
+map <Leader>rI <Action>(IntroduceField)
+map <Leader>rm <Action>(Refactorings.QuickListPopupAction)
+
+map <Leader>mo <Action>(OverrideMethods)
+map <Leader>mi <Action>(ImplementMethods)
+map <Leader>me <Action>(ExtractMethod)
+
+nnoremap <leader>ru :action ChooseRunConfiguration<CR>
+nnoremap <leader>rc :action RunClass<CR>
+nnoremap <leader>rh :action ContextRun<CR>
+nnoremap <leader>rw :action ActivateRunToolWindow<CR>
+nnoremap <leader>rr :action Rerun<CR>
+nnoremap <leader>rf :action RerunFailedTests<CR>
+
+nnoremap <leader>de :action Debug<CR>
+nnoremap <leader>dh :action ContextDebug<CR>
+nnoremap <leader>dw :action ActivateDebugToolWindow<CR>
+nnoremap <leader>dt :action ToggleLineBreakpoint<CR>
+nnoremap <leader>ds :action StepOver<CR>
+nnoremap <leader>di :action StepInto<CR>
+nnoremap <leader>do :action StepOut<CR>
+nnoremap <leader>ev :action EvaluateExpression<CR>
+vnoremap <leader>ev :action EvaluateExpression<CR>
+
+noremap <Esc> :nohlsearch<CR>
+
+nnoremap <leader>e  :NERDTree<CR>
+nnoremap <leader>ee :NERDTree<CR>
