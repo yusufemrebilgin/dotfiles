@@ -1,20 +1,14 @@
 #!/usr/bin/env bash
 
-readonly DEVENV_SDKMAN_CONFIG_DIR="${HOME}/.sdkman"
-readonly DEVENV_SDKMAN_INIT_SCRIPT="${DEVENV_SDKMAN_CONFIG_DIR}/bin/sdkman-init.sh"
+readonly SDKMAN_CONFIG_DIR="${HOME}/.sdkman"
+readonly SDKMAN_INIT_SCRIPT="${SDKMAN_CONFIG_DIR}/bin/sdkman-init.sh"
 
-install() {
-  set +u
-  log "Installing SDKMAN!..."
-  run_cmd rm -rfv "${DEVENV_SDKMAN_CONFIG_DIR}" || true
-  run_cmd bash -c 'curl -s "https://get.sdkman.io" | bash' &>/dev/null
-  run_cmd source "${DEVENV_SDKMAN_INIT_SCRIPT}"
-  log "Installation completed successfully for SDKMAN!"
-  set -u
-}
+__dfiles_log "Installing SDKMAN!..."
+__dfiles_run_cmd rm -rfv "${SDKMAN_CONFIG_DIR}" || true
+__dfiles_run_cmd bash -c 'curl -s "https://get.sdkman.io" | bash' &>/dev/null
 
-verify_installation() {
-  command -v sdk &>/dev/null
-  test -d "${DEVENV_SDKMAN_CONFIG_DIR}"
-  test -f "${DEVENV_SDKMAN_INIT_SCRIPT}"
-}
+set +u
+__dfiles_run_cmd source "${SDKMAN_INIT_SCRIPT}"
+set -u
+
+__dfiles_log "Installation completed successfully for SDKMAN!"
