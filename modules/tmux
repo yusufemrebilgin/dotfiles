@@ -1,26 +1,21 @@
 #!/usr/bin/env bash
 
-readonly DEVENV_TMUX_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/tmux"
-readonly DEVENV_TMUX_DOTFILES_DIR="${DEVENV_DOTFILES_DIR}/tmux"
+readonly TMUX_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/tmux"
+readonly TMUX_CONFIG_SRC_DIR="${DFILES_CONFIGS_DIR}/tmux"
 
-install() {
-  run_cmd sudo apt-get install -y tmux
-  run_cmd mkdir -pv "${DEVENV_TMUX_CONFIG_DIR}"
-  run_cmd cp -v "${DEVENV_TMUX_DOTFILES_DIR}/tmux.conf" "${DEVENV_TMUX_CONFIG_DIR}"
-  # Clone tpm (tmux plugin manager) and install plugins
-  if [[ ! -d "${DEVENV_TMUX_CONFIG_DIR}/plugins/tpm" ]]; then
-    log "Tmux plugin manager not found; cloning it from GitHub into plugins directory..."
-    run_cmd git clone https://github.com/tmux-plugins/tpm "${DEVENV_TMUX_CONFIG_DIR}/plugins/tpm" &>/dev/null
-  else
-    log "Tmux plugin manager already installed; skipping clone..."
-  fi
-  log "Installing tmux plugins..."
-  "${DEVENV_TMUX_CONFIG_DIR}/plugins/tpm/bin/install_plugins"
-  log "Tmux installation completed successfully."
-}
+__dfiles_run_cmd sudo apt-get install -y tmux
+__dfiles_run_cmd mkdir -pv "${TMUX_CONFIG_DIR}/plugins"
+__dfiles_run_cmd cp -v "${TMUX_CONFIG_SRC_DIR}/tmux.conf" "${TMUX_CONFIG_DIR}"
 
-verify_installation() {
-  command -v tmux &>/dev/null
-  test -f "${DEVENV_TMUX_DOTFILES_DIR}/tmux.conf"
-  test -d "${DEVENV_TMUX_CONFIG_DIR}/plugins/tpm"
-}
+# Clone tpm (tmux plugin manager) and install plugins
+if [[ ! -d "${TMUX_CONFIG_DIR}/plugins/tpm" ]]; then
+  __dfiles_log "Tmux plugin manager not found; cloning it from GitHub into plugins directory..."
+  __dfiles_run_cmd git clone https://github.com/tmux-plugins/tpm "${TMUX_CONFIG_DIR}/plugins/tpm"
+else
+  __dfiles_log "Tmux plugin manager already installed; skipping clone..."
+fi
+
+__dfiles_log "Installing tmux plugins..."
+__dfiles_run_cmd "${TMUX_CONFIG_DIR}/plugins/tpm/bin/install_plugins"
+
+__dfiles_log "Tmux installation completed successfully."
