@@ -42,7 +42,7 @@ __dfiles_run_cmd() {
     return 0
   fi
 
-  "$@" | __dfiles_log
+  "$@" 2>&1 | __dfiles_log
 }
 
 install_module() {
@@ -86,8 +86,6 @@ install_apt_packages() {
     ripgrep
   )
 
-  DFILES_LOG_LABEL="install"
-
   local to_install=()
   for package in "${packages[@]}"; do
     if is_package_installed "${package}"; then
@@ -113,5 +111,4 @@ __dfiles_run_cmd sudo apt-get update
 __dfiles_run_cmd sudo apt-get upgrade -y
 
 install_apt_packages
-
-cd "${DFILES_SCRIPT_PATH}" && install_all_modules
+install_all_modules
