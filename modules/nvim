@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 
-readonly NVIM_DATA_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/nvim"
-readonly NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
-readonly NVIM_CONFIG_SRC_DIR="${DFILES_CONFIGS_DIR}/nvim"
+__dfiles_setup_nvim() {
+ 
+  local -r nvim_data_dir="${XDG_DATA_HOME:-${HOME}/.local/share}/nvim"
+  local -r nvim_config_dir="${XDG_DATA_HOME:-${HOME}/.config}/nvim"
+  local -r nvim_config_src_dir="${DFILES_CONFIGS_DIR}/nvim"
 
-__dfiles_log "Downloading and installing the latest Neovim AppImage..."
-__dfiles_run_cmd curl -sLO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
-__dfiles_run_cmd chmod u+x nvim-linux-x86_64.appimage
-__dfiles_run_cmd sudo mv -v nvim-linux-x86_64.appimage /usr/local/bin/nvim
+  __dfiles_log "Downloading and installing the latest Neovim AppImage..."
+  __dfiles_run_cmd curl -sLO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+  __dfiles_run_cmd chmod u+x nvim-linux-x86_64.appimage
+  __dfiles_run_cmd sudo mv -v nvim-linux-x86_64.appimage /usr/local/bin/nvim
 
-__dfiles_log "Neovim installed, applying configuration..."
-__dfiles_run_cmd rm -rf "${NVIM_DATA_DIR}" "${NVIM_CONFIG_DIR}" || true
-__dfiles_run_cmd mkdir -pv "${NVIM_CONFIG_DIR}"
-__dfiles_run_cmd cp -rv "${NVIM_CONFIG_SRC_DIR}"/. "${NVIM_CONFIG_DIR}"
-__dfiles_log "Neovim setup and configuration completed successfully."
+  __dfiles_log "Neovim installed, applying configuration..."
+  __dfiles_run_cmd rm -rf "${nvim_data_dir}" "${nvim_config_dir}"
+  __dfiles_link "${nvim_config_src_dir}/init.lua" "${nvim_config_dir}/init.lua"
+  __dfiles_link "${nvim_config_src_dir}/lua" "${nvim_config_dir}/lua"
+  __dfiles_log "Neovim setup and configuration completed successfully."
+
+}
+
+__dfiles_setup_nvim
