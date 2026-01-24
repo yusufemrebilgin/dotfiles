@@ -1,0 +1,50 @@
+[env]
+TERM = "xterm-256color"
+
+[window]
+opacity = 1
+padding.x = 0
+padding.y = 0
+dynamic_padding = true
+dimensions.columns = 110
+dimensions.lines = 24
+
+decorations = "Full"
+dynamic_title = false
+
+[font]
+size = 14.75
+normal.family = "JetBrains Mono Nerd Font"
+bold.family = "JetBrains Mono Nerd Font"
+italic.family = "JetBrains Mono Nerd Font"
+bold_italic.family = "JetBrains Mono Nerd Font"
+
+[colors.primary]
+background = "#133a44"
+foreground = "#c2d4d6"
+
+[colors.normal]
+black    = "#171421"
+red      = "#e85f5f"
+green    = "#26a269"
+yellow   = "#baa90f"
+blue     = "#167ac7"
+magenta  = "#a347ba"
+cyan     = "#2aa1b3"
+white    = "#d0cfcc"
+
+[colors.bright]
+black    = "#5e5c64"
+red      = "#f77474"
+green    = "#33d17a"
+yellow   = "#e9ad0c"
+blue     = "#1886db"
+magenta  = "#c061cb"
+cyan     = "#33c7de"
+white    = "#ffffff"
+
+[keyboard]
+bindings = [
+  { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+  { key = "F11", action = "ToggleFullScreen" }
+]
