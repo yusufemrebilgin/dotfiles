@@ -71,6 +71,11 @@ __dfiles_link() {
     __dfiles_log "Removing existing link target '$dest'"
     __dfiles_run_cmd rm -rf "$dest"
   fi
+
+  local parent_dir="$(dirname "$dest")"
+  if [[ ! -d "$parent_dir" ]]; then
+    __dfiles_run_cmd mkdir -pv "$parent_dir"
+  fi
   
   __dfiles_run_cmd ln -sv "$src" "$dest"
 }
