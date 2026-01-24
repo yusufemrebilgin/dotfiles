@@ -9,7 +9,7 @@ readonly UBUNTU_INSTANCE_DISK="10G"
 readonly UBUNTU_INSTANCE_MEMORY="4G"
 
 readonly MOUNT_SOURCE_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-readonly MOUNT_TARGET_PATH="/home/ubuntu/dev-environment"
+readonly MOUNT_TARGET_PATH="/home/ubuntu/dotfiles"
 
 cleanup() {
   echo "Deleting instance '${UBUNTU_INSTANCE_NAME}'"
