@@ -21,7 +21,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('yank-group', { clear = true }),
+  group = vim.api.nvim_create_augroup('user-yank-group', { clear = true }),
   callback = function()
     vim.hl.on_yank()
   end,
