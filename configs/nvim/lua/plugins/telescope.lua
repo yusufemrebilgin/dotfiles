@@ -67,7 +67,7 @@ return {
     vim.keymap.set('n', '<leader>s.', telescope_builtin.oldfiles, { desc = 'Search recent files ("." for repeat)' })
 
     vim.keymap.set('n', '<leader><leader>', function()
-      telescope_builtin.buffers({ initial_mode = 'normal' })
+      telescope_builtin.buffers({ previewer = false })
     end, { desc = 'Find existing buffers' })
 
 
