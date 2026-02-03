@@ -52,6 +52,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Configuration for Netrw
+vim.g.netrw_banner = 0
 vim.keymap.set('n', '<leader>ee', '<cmd>Explore<CR>')
 vim.keymap.set('n', '<leader>eq', '<cmd>bdelete<CR>')
 
