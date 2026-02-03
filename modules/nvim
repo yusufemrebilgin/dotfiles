@@ -3,7 +3,7 @@
 __dfiles_setup_nvim() {
  
   local -r nvim_data_dir="${XDG_DATA_HOME:-${HOME}/.local/share}/nvim"
-  local -r nvim_config_dir="${XDG_DATA_HOME:-${HOME}/.config}/nvim"
+  local -r nvim_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/nvim"
   local -r nvim_config_src_dir="${DFILES_CONFIGS_DIR}/nvim"
 
   __dfiles_log "Downloading and installing the latest Neovim AppImage..."
