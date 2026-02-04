@@ -123,6 +123,7 @@ install_apt_packages() {
     tree
     fd-find
     ripgrep
+    rofi
   )
   local to_install=()
   for package in "${packages[@]}"; do
