@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+# Detect the connected display output (e.g. eDP-1, HDMI-1)
+OUTPUT=$(xrandr | grep " connected" | cut -d " " -f1)
+VALUES=$(seq 0.1 0.1 1.0)
+
+CURRENT_BRIGHTNESS=$(xrandr --verbose --current | grep -m1 'Brightness' | awk '{print $NF}')
+CURRENT_BRIGHTNESS=$(printf '%.1f' "$CURRENT_BRIGHTNESS")
+
+pick_with_rofi() {
+  printf '%s\n' "$VALUES" | tac | rofi -dmenu -i -no-custom \
+    -p "Brightness (current: $CURRENT_BRIGHTNESS)" \
+    -theme solarized_alternate \
+    -theme-str 'window { width: 540px; height: 270px; border-radius: 4px; }' \
+    -kb-row-down 'j,Control+n' \
+    -kb-row-up 'k,Control+p'
+}
+
+pick_with_fzf() {
+  printf '%s\n' "$VALUES" | fzf \
+    --header="Current: $current_brightness (use j/k to navigate)" \
+    --prompt="" \
+    --height=15 \
+    --reverse \
+    --tac \
+    --bind="j:down,k:up,change:clear-query" \
+    --preview="echo 'Setting brightness to {}'" \
+    --preview-window=up:1
+}
+
+case "${1:-}" in
+  ""|--rofi)
+    BRIGHTNESS=$(pick_with_rofi)
+    ;;
+  --fzf)
+    BRIGHTNESS=$(pick_with_fzf)
+    ;;
+  *)
+    BRIGHTNESS="$1"
+    ;;
+esac
+
+[[ -z "${BRIGHTNESS:-}" ]] && exit 0
+
+if ! [[ "$BRIGHTNESS" =~ ^0\.[1-9]$|^1\.0$|^1$ ]]; then
+  echo "Error: Brightness must be a number between 0.1 and 1.0 (inclusive)" >&2
+  exit 1
+fi
+
+xrandr --output "$OUTPUT" --brightness "$BRIGHTNESS"
+echo "✔ Brightness set to $BRIGHTNESS on output '$OUTPUT'"
