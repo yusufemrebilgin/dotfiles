@@ -5,9 +5,12 @@ return {
   lazy = false,
   config = function()
     require('nvim-treesitter.configs').setup({
+      modules = {},
       indent = { enable = true },
       highlight = { enable = true },
-      auto_install = true,
+      auto_install = false,
+      sync_install = false,
+      ignore_install = {},
       ensure_installed = {
         'bash',
         'go',
@@ -19,7 +22,9 @@ return {
         'markdown_inline',
         'query',
         'yaml',
-        'dockerfile'
+        'dockerfile',
+        'javascript',
+        'typescript'
       }
     })
   end
