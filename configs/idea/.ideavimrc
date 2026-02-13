@@ -63,6 +63,7 @@ map <Leader>qe <Action>(ExpressionTypeInfo)
 map <Leader>oo <Action>(FileStructurePopup)
 map <Leader>h  <Action>(Back)
 map <Leader>l  <Action>(Forward)
+map <leader>th <Action>(ToggleInlayHintsGloballyAction)
 
 map <Leader>nc <Action>(NewClass)
 map <Leader>nf <Action>(NewFile)
