@@ -91,7 +91,8 @@ return {
     local servers = {
       gopls = {},
       lua_ls = {},
-      ts_ls = {}
+      ts_ls = {},
+      bashls = {}
     }
 
     -- Ensure binaries are installed
@@ -106,7 +107,8 @@ return {
         'gopls',
         'lua-language-server',
         'stylua',
-        'typescript-language-server'
+        'typescript-language-server',
+        'bash-language-server'
       }
     })
 
