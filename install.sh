@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC1090,SC2034
+# SC1090: Modules are loaded dynamically via source.
+# SC2034: Globals are intentionally defined here for use in sourced modules.
+
 set -euo pipefail
 
-readonly DFILES_SCRIPT_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck disable=SC2155
+readonly DFILES_SCRIPT_PATH=""$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 readonly DFILES_MODULES_DIR="${DFILES_SCRIPT_PATH}/modules"
 readonly DFILES_SCRIPTS_DIR="${DFILES_SCRIPT_PATH}/scripts"
 readonly DFILES_CONFIGS_DIR="${DFILES_SCRIPT_PATH}/configs"
@@ -72,7 +77,8 @@ __dfiles_link() {
     __dfiles_run_cmd rm -rf "$dest"
   fi
 
-  local parent_dir="$(dirname "$dest")"
+  local parent_dir
+  parent_dir="$(dirname "$dest")"
   if [[ ! -d "$parent_dir" ]]; then
     __dfiles_run_cmd mkdir -pv "$parent_dir"
   fi
@@ -81,7 +87,8 @@ __dfiles_link() {
 }
 
 select_modules_with_editor() {
-  local tmpfile="$(mktemp)"
+  local tmpfile
+  tmpfile="$(mktemp)"
   local editor="${EDITOR:-vi}"
 
   echo "$EDITOR_MSG_TEMPLATE" > "$tmpfile"
