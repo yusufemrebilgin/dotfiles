@@ -87,6 +87,7 @@ nnoremap <leader>rw :action ActivateRunToolWindow<CR>
 nnoremap <leader>rr :action Rerun<CR>
 nnoremap <leader>rf :action RerunFailedTests<CR>
 
+nnoremap <leader>du :action ChooseDebugConfiguration<CR>
 nnoremap <leader>de :action Debug<CR>
 nnoremap <leader>dh :action ContextDebug<CR>
 nnoremap <leader>dw :action ActivateDebugToolWindow<CR>
