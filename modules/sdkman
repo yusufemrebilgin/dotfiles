@@ -1,20 +1,8 @@
 #!/usr/bin/env bash
 
-__dfiles_setup_sdkman() {
+sudo apt-get install -yq unzip zip
+curl -s "https://get.sdkman.io?ci=true" | bash
 
-  local -r sdkman_config_dir="${HOME}/.sdkman"
-  local -r sdkman_init_script="${sdkman_config_dir}/bin/sdkman-init.sh"
-
-  __dfiles_log "Installing SDKMAN!..."
-  __dfiles_run_cmd rm -rfv "${sdkman_config_dir}"
-  __dfiles_run_cmd bash -c 'curl -s "https://get.sdkman.io" | bash' &>/dev/null
-
-  set +u
-  __dfiles_run_cmd source "${sdkman_init_script}"
-  set -u
-
-  __dfiles_log "Installation completed successfully for SDKMAN!"
-
-}
-
-__dfiles_setup_sdkman
+set +u
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+set -u
