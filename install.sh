@@ -65,27 +65,6 @@ __dfiles_run_cmd() {
   "$@" 2>&1 | __dfiles_log
 }
 
-__dfiles_link() {
-  local src="$1"
-  local dest="$2"
-  if [[ ! -e "$src" ]]; then
-    __dfiles_log "Failed to create link '$src': Source does not exists"
-    return 1
-  fi
-  if [[ -L "$dest"  || -e "$dest" ]]; then
-    __dfiles_log "Removing existing link target '$dest'"
-    __dfiles_run_cmd rm -rf "$dest"
-  fi
-
-  local parent_dir
-  parent_dir="$(dirname "$dest")"
-  if [[ ! -d "$parent_dir" ]]; then
-    __dfiles_run_cmd mkdir -pv "$parent_dir"
-  fi
-  
-  __dfiles_run_cmd ln -sv "$src" "$dest"
-}
-
 select_modules_with_editor() {
   local tmpfile
   tmpfile="$(mktemp)"
@@ -141,7 +120,7 @@ install_apt_packages() {
 
   if [[ "${#to_install[@]}" -gt 0 ]]; then
     __dfiles_log "Installing ${#to_install[@]} packages: ${to_install[*]}"
-    __dfiles_run_cmd sudo apt-get install -y "${to_install[@]}"
+    __dfiles_run_cmd sudo apt-get install -yqq "${to_install[@]}"
   else
     __dfiles_log "All packages are already installed"
   fi
@@ -151,7 +130,7 @@ install_module() {
   local module="$1"
   if [[ -f "$module" ]]; then
     DFILES_LOG_LABEL="$(basename "$module")"
-    source "$module"
+    (__dfiles_run_cmd source "$module")
     DFILES_LOG_LABEL=""
   fi
 }
@@ -201,7 +180,7 @@ if [[ "${INTERACTIVE}" == true ]]; then
 fi
 
 __dfiles_run_cmd sudo apt-get update
-__dfiles_run_cmd sudo apt-get upgrade -y
+__dfiles_run_cmd sudo apt-get upgrade -yqq
 
 install_apt_packages
 

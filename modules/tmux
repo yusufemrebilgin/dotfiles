@@ -1,27 +1,20 @@
 #!/usr/bin/env bash
 
-__dfiles_setup_tmux() {
+readonly tmux_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/tmux"
+readonly tmux_config_src_dir="${DFILES_CONFIGS_DIR}/tmux"
 
-  local -r tmux_config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/tmux"
-  local -r tmux_config_src_dir="${DFILES_CONFIGS_DIR}/tmux"
+sudo apt-get install -yqq tmux
+mkdir -pv "${tmux_config_dir}/plugins"
+ln -sv "${tmux_config_src_dir}/tmux.conf" "${tmux_config_dir}/tmux.conf"
 
-  __dfiles_run_cmd sudo apt-get install -y tmux
-  __dfiles_run_cmd mkdir -pv "${tmux_config_dir}/plugins"
-  __dfiles_link "${tmux_config_src_dir}/tmux.conf" "${tmux_config_dir}/tmux.conf"
+# Clone tpm (tmux plugin manager) and install plugins
+if [[ ! -d "${tmux_config_dir}/plugins/tpm" ]]; then
+  echo "Tmux plugin manager not found; cloning it from GitHub into plugins directory..."
+  git clone https://github.com/tmux-plugins/tpm "${tmux_config_dir}/plugins/tpm"
+else
+  echo "Tmux plugin manager already installed; skipping clone..."
+fi
 
-  # Clone tpm (tmux plugin manager) and install plugins
-  if [[ ! -d "${tmux_config_dir}/plugins/tpm" ]]; then
-    __dfiles_log "Tmux plugin manager not found; cloning it from GitHub into plugins directory..."
-    __dfiles_run_cmd git clone https://github.com/tmux-plugins/tpm "${tmux_config_dir}/plugins/tpm"
-  else
-    __dfiles_log "Tmux plugin manager already installed; skipping clone..."
-  fi
-
-  __dfiles_log "Installing tmux plugins..."
-  __dfiles_run_cmd "${tmux_config_dir}/plugins/tpm/bin/install_plugins"
-
-  __dfiles_log "Tmux installation completed successfully."
-
-}
-
-__dfiles_setup_tmux
+echo "Installing tmux plugins..."
+"${tmux_config_dir}/plugins/tpm/bin/install_plugins"
+echo "Tmux installation completed successfully."
