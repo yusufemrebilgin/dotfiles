@@ -1,0 +1,27 @@
+# Check whether a command is available in PATH 
+is_command_installed() { command -v "$1" &>/dev/null; }
+
+is_command_installed zoxide && eval "$(zoxide init zsh)"
+
+if is_command_installed fzf; then
+  source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh
+  source_if_exists /usr/share/doc/fzf/examples/completion.zsh
+fi
+
+# Auto-completion for kubectl
+is_command_installed kubectl && source <(kubectl completion zsh)
+
+# Go
+export PATH="$PATH:/usr/local/go/bin"
+
+# Local bin environment
+source_if_exists "$HOME/.local/bin/env"
+
+# NVM initialization
+export NVM_DIR="$HOME/.nvm"
+source_if_exists "$NVM_DIR/nvm.sh"
+source_if_exists "$NVM_DIR/bash_completion"
+
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+source_if_exists "$SDKMAN_DIR/bin/sdkman-init.sh"

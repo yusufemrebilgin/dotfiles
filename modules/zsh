@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+readonly zsh_config_src_dir="${DFILES_CONFIGS_DIR}/zsh"
+
+sudo apt-get update -qq
+sudo apt-get install -yqq zsh curl git
+
+echo "zsh $(zsh --version | awk '{print $2}') installed"
+
+# This will run with following options:
+#
+#   --skip-chsh:    setting CHSH to 'no'
+#   --unattended:   sets both CHSH and RUNZSH to 'no'
+#   --keep-zshrc:   sets KEEP_ZSHRC to 'yes'
+#
+# For more detail: https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+ln -snfv "${zsh_config_src_dir}/.zsh_aliases" "${HOME}/.zsh_aliases"
+ln -snfv "${zsh_config_src_dir}/.zsh_tools" "${HOME}/.zsh_tools"
+ln -snfv "${zsh_config_src_dir}/.zshrc" "${HOME}/.zshrc"
+
+install_plugin() {
+  local repo_url="$1"
+  local plugin_name="$(basename "$repo_url")"
+  git clone --depth=1 "${repo_url}" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/${plugin_name}"
+}
+
+install_plugin https://github.com/zsh-users/zsh-autosuggestions
+install_plugin https://github.com/zsh-users/zsh-completions
+install_plugin https://github.com/zsh-users/zsh-syntax-highlighting
+install_plugin https://github.com/zsh-users/zsh-history-substring-search
+
+zsh_bin="$(which zsh)"
+
+echo "Changing default shell to $zsh_bin"
+sudo chsh -s "$zsh_bin"
+echo "Default shell updated to -> $zsh_bin"

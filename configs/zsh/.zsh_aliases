@@ -1,0 +1,13 @@
+alias h='history'
+alias hl='history | less +G'
+alias hs='history | grep'
+alias hsi='history | grep -i'
+
+alias vim='nvim'
+
+alias p='pnpm'
+alias k='kubectl'
+
+alias c='clear'
+alias so='source'
+alias reload='exec zsh'
