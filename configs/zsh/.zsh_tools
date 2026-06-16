@@ -9,7 +9,7 @@ if is_command_installed fzf; then
 fi
 
 # Auto-completion for kubectl
-# is_command_installed kubectl && source <(kubectl completion zsh)
+is_command_installed kubectl && source <(kubectl completion zsh)
 
 # Go
 export PATH="$PATH:/usr/local/go/bin"
@@ -32,6 +32,9 @@ npm() { lazy_load_nvm; npm "$@"; }
 npx() { lazy_load_nvm; npx "$@"; }
 pnpm() { lazy_load_nvm; pnpm "$@"; }
 yarn() { lazy_load_nvm; yarn "$@"; }
+
+# direnv hook
+is_command_installed direnv && eval "$(direnv hook zsh)"
 
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

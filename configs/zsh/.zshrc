@@ -1,7 +1,8 @@
 # Shell profiling (enable when optimizing slow startup)
 #
-#   - Add 'zmodload zsh/zshprof' at top of the ~/.zshrc
+#   - Add 'zmodload zsh/zprof' at top of the ~/.zshrc
 #   - Add 'zprof' at bottom of the ~/.zshrc
+#   - To remove completion cache 'rm -rf ~/.zcompdump*'
 #
 # Measure startup time with 'time zsh -i -c exit'
 
