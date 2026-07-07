@@ -27,6 +27,15 @@ return {
         container = {
           enable_character_fade = true,
         },
+        last_modified = {
+          enabled = true,
+          format = "%Y-%m-%d %H:%M:%S",
+        },
+        created = {
+          enabled = true,
+          format = "%Y-%m-%d %H:%M:%S",
+          required_width = 110,
+        },
         indent = {
           indent_size = 2,
           padding = 1,
@@ -58,6 +67,8 @@ return {
           ["l"] = "open",
           ["h"] = "close_node",
           ["<esc>"] = "cancel",
+          ["z"] = "close_all_nodes",
+          ["Z"] = "expand_all_subnodes",
         },
       },
 
@@ -75,22 +86,8 @@ return {
         hijack_netrw_behavior = "open_current",
         window = {
           mappings = {
-            ["y"] = function(state)
-              local node = state.tree:get_node()
-              if node ~= nil then
-                local name = node.name
-                vim.fn.setreg("+", name)
-                vim.notify("'" .. name .. "' copied to clipboard")
-              end
-            end,
-            ["Y"] = function(state)
-              local node = state.tree:get_node()
-              if node ~= nil then
-                local path = node:get_id()
-                vim.fn.setreg("+", path)
-                vim.notify("'" .. path .. "' copied to clipboard")
-              end
-            end,
+            ["y"] = "copy_filename",
+            ["Y"] = "copy_filepath",
             ["<bs>"] = "navigate_up",
             ["."] = "set_root",
             ["H"] = "toggle_hidden",
@@ -114,6 +111,24 @@ return {
             ["os"] = { "order_by_size", nowait = false },
             ["ot"] = { "order_by_type", nowait = false },
           },
+        },
+        commands = {
+          copy_filename = function(state)
+            local node = state.tree:get_node()
+            if node ~= nil then
+              local name = node.name
+              vim.fn.setreg("+", name)
+              vim.notify("'" .. name .. "' copied to clipboard", vim.log.levels.INFO)
+            end
+          end,
+          copy_filepath = function(state)
+            local node = state.tree:get_node()
+            if node ~= nil then
+              local path = node:get_id()
+              vim.fn.setreg("+", path)
+              vim.notify("'" .. path .. "' copied to clipboard", vim.log.levels.INFO)
+            end
+          end,
         },
       },
     })
