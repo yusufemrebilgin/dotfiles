@@ -69,6 +69,13 @@ return {
           ["<esc>"] = "cancel",
           ["z"] = "close_all_nodes",
           ["Z"] = "expand_all_subnodes",
+          ["i"] = {
+            "show_file_details",
+            config = {
+              created_format = "%Y-%m-%d %H:%M:%S",
+              modified_format = "%Y-%m-%d %H:%M:%S",
+            },
+          },
         },
       },
 
@@ -95,6 +102,7 @@ return {
             ["D"] = "fuzzy_finder_directory",
             ["#"] = "none",
             ["f"] = "none",
+            ["p"] = "focus_parent_node",
             ["<c-x>"] = "none",
             ["[g"] = "prev_git_modified",
             ["]g"] = "next_git_modified",
@@ -127,6 +135,13 @@ return {
               local path = node:get_id()
               vim.fn.setreg("+", path)
               vim.notify("'" .. path .. "' copied to clipboard", vim.log.levels.INFO)
+            end
+          end,
+          focus_parent_node = function(state)
+            local node = state.tree:get_node()
+            if node ~= nil then
+              local parent_id = node:get_parent_id()
+              require("neo-tree.ui.renderer").focus_node(state, parent_id)
             end
           end,
         },
