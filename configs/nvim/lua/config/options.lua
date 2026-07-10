@@ -19,7 +19,7 @@ vim.opt.updatetime = 250
 
 vim.opt.wrap = false
 vim.opt.linebreak = true
-vim.opt.colorcolumn = "100"
+vim.opt.colorcolumn = "120"
 
 vim.opt.number = true
 vim.opt.showmode = false
