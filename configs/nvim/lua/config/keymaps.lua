@@ -34,3 +34,11 @@ vim.keymap.set("n", "n", "nzzzv", { desc = "Next Match (Centered)" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous Match (Centered)" })
 vim.keymap.set("n", "*", "*zzzv", { desc = "Search Word (Centered)" })
 vim.keymap.set("n", "#", "#zzzv", { desc = "Search Word Backward (Centered)" })
+
+-- Search and replace mapping from Primeagen
+vim.keymap.set(
+  "n",
+  "<leader>s",
+  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { silent = false, desc = "Search and replace word under cursor" }
+)
