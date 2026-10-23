@@ -103,8 +103,8 @@ alias c='clear'
 alias so='source'
 alias reload='exec zsh'
 
-# Source a file only if it exists and readable
-source_if_exists() { [[ -r "$1" ]] && source "$1"; }
+# Source a file only if it exists and readable (missing file is not an error)
+source_if_exists() { [[ ! -r "$1" ]] || source "$1"; }
 
 typeset -U PATH path FPATH fpath
 
