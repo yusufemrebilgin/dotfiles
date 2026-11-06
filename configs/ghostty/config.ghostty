@@ -1,0 +1,24 @@
+#
+# ~/.config/ghostty/config.ghostty
+#
+title = " "
+theme = Atom One Dark
+
+window-decoration = none
+window-colorspace = display-p3
+
+window-padding-x = 4
+window-padding-y = 4
+window-padding-balance = true
+
+alpha-blending = linear-corrected
+font-thicken = true
+font-thicken-strength = 50
+
+font-family = "JetBrainsMono Nerd Font"
+font-size = 18
+
+macos-option-as-alt = left
+
+mouse-hide-while-typing = true
+shell-integration-features = ssh-env,ssh-terminfo
