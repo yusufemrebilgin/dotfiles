@@ -88,5 +88,17 @@ return {
         prompt_title = "Live Grep in Open Files",
       })
     end, { desc = "Search in open files" })
+
+    -- Keymap for editing nvim configuration
+    vim.keymap.set("n", "<leader>sc", function ()
+      local config_path = vim.fn.stdpath("config")
+      telescope_builtin.find_files({
+        prompt_title = "Neovim Configuration Files",
+        previewer = false,
+        follow = true,
+        cwd = config_path,
+      })
+    end)
+
   end,
 }
